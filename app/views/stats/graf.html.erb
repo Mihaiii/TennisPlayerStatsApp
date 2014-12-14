@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Chartkick example</title>
+
+</head>
+<body>
+    <script src="//www.google.com/jsapi"></script>
+    <script src="/application/html/js/ankane/chartkick/chartkick.js"></script>
+    <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+    <div id="chart-2" style="height: 300px; text-align: center; color: #999; line-height: 300px; font-size: 14px; font-family: Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif;">Loading...</div>
+<script>
+new Chartkick.LineChart("chart-2", $pentru_graf.to_json);</script>
+</body>
+</html>

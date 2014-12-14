@@ -1,0 +1,17 @@
+<form action="/calcstats" method="post">
+<p>Jucatorii care au avut meciuri in:</p>
+<p>Ziua:
+<input type="text" name="zi_input"  value= "<%= @zi %>" style="width: 40px;">
+</p>
+<p>Luna:
+<input type="text" name="luna_input" value="<%= @luna %>" style="width: 40px;">
+</p>
+<p>Anul:
+<input type="text" name="an_input" value="<%= @an %>" style="width: 40px;">
+</p>
+<p>Ultimele
+<input type="text" name="nr_meciuri_cautate" value="<%= 50 %>" style="width: 40px;">
+meciuri / jucator</p>
+<br>
+<button type="submit">Calc Stats</button>
+</form>

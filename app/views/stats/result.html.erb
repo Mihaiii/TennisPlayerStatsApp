@@ -1,0 +1,29 @@
+<table style="width:100%" style="position:absolute" border="1">
+  <tr>
+    <th>Nume</th>
+    <th>Punctaj</th>
+    <th>Meciuri cu date complete</th>
+    <th>Ziua in care s-a jucat ultimul meci pentru care s-au gasit date complete</th>
+    <th>Punctaj/meci (de la cel mai recent meci)</th>
+  </tr>
+  <% @date_elem.each do |nume, stats| %>
+    <% total = stats[0].inject{|sum,x| sum + x }%>
+    <% date_complete = 0 %>
+    <% stats[0].each { |x| if x != 0 then date_complete += 1 end} %>
+    <tr>
+      <td align="middle"><%= nume %></td>
+      <% if total > 0 %>
+      <td align="middle"><span style="color:#00FF00"><%= total %></td>
+      <% else %>
+      <td align="middle"><%= total %></td>
+      <% end %>
+      <td align="middle"><%= date_complete %>/<%= @nr_meciuri_cautate%></td>
+      <% if date_complete == 0 %>
+      <td align="middle">-</td>
+      <% else %>
+      <td align="middle"><%= stats[1] %></td>
+      <% end %>
+      <td align="middle"><%= stats[0] %></td>
+    </tr>
+  <% end %>
+</table>

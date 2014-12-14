@@ -1,0 +1,74 @@
+require 'nokogiri'
+
+class StatsController < ActionController::Base
+  def input
+    @an = Time.now.year
+    @zi = Time.now.day
+    @luna = Time.now.month
+    render "input"
+  end
+
+def aplicarea_handicapului (cota, diferenta_gameuri)
+  case cota
+  when 0..1.10
+    diferenta_gameuri - 6.5
+  when 0..1.22
+    diferenta_gameuri - 5.5
+  when 0..1.33
+    diferenta_gameuri - 4.5
+  when 0..1.50
+    diferenta_gameuri - 3.5
+  when 0..1.61
+    diferenta_gameuri - 2.5
+  when 0..1.72
+    diferenta_gameuri - 1.5
+  when 0..1.84
+    diferenta_gameuri - 0.5
+  when 0..1.96
+    diferenta_gameuri + 0.5
+  when 0..2.10
+    diferenta_gameuri + 1.5
+  when 0..2.37
+    diferenta_gameuri + 2.5
+  when 0..3.00
+    diferenta_gameuri + 3.5
+  when 0..3.75
+    diferenta_gameuri + 4.5
+  when 0..5.50
+    diferenta_gameuri + 5.5
+  else
+    diferenta_gameuri + 6.5
+  end
+end
+
+def calcstats
+    nr_meciuri_cautate = params[:nr_meciuri_cautate].to_i
+    zi = params[:zi_input].to_i
+    luna = params[:luna_input].to_i
+    an = params[:an_input].to_i
+    x = 0
+    tip_turneu='atp'
+    @@lista_nume_TE = Array.new
+    @@lista_nume = Array.new
+    while x < 2
+      url = "http://www.tennisexplorer.com/matches/?type=#{tip_turneu}-single&year=#{an}&month=#{luna}&day=#{zi}"
+      data = Nokogiri::HTML(open(url))
+      tabel = data.css('.result')
+        tabel.css('.t-name a').map do |link|
+          if link['href'][1..6] == "player"
+            @@lista_nume_TE << link['href']
+          end
+          if /[a-zA-Z]/ === link.text[0] and link.text[-1] == "."
+            @@lista_nume << link.text
+          end
+        end
+    x += 1
+    tip_turneu = 'wta'
+    end
+  redirect_to '/result'
+  end
+end
+
+def result
+  render 'result'
+end
